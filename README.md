@@ -16,3 +16,16 @@ ON sales.product_id = menu.product_id
 GROUP BY sales.customer_id, sales.order_date, sales.product_id, menu.product_name, menu.price
 ORDER BY sales.customer_id ASC; 
 ```
+
+
+
+
+
+## How many total days has each customer visited this business? 
+```sql
+SELECT DISTINCT customer_id AS customer, COUNT(order_date) OVER (
+PARTITION BY customer_id) AS days_visited 
+FROM dannys_diner.sales 
+GROUP BY customer_id, order_date
+ORDER BY days_visited DESC;
+```
