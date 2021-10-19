@@ -93,5 +93,22 @@ ORDER BY sales.customer_id DESC, customer_favorites DESC;
 
 ## Which item was purchased first after they became a loyalty member?
 ```sql
+SELECT members.customer_id, 
+       members.join_date,
+       sales.product_id,
+       menu.product_name
+FROM dannys_diner.members LEFT JOIN dannys_diner.sales 
+ON members.join_date = sales.order_date
+LEFT JOIN dannys_diner.menu 
+ON sales.product_id = menu.product_id; 
+```
+| customer\_id | join\_date               | product\_id | product\_name |
+| ------------ | ------------------------ | ----------- | ------------- |
+| A            | 2021-01-07T00:00:00.000Z | 2           | curry         |
+| A            | 2021-01-07T00:00:00.000Z | 3           | ramen         |
+| B            | 2021-01-09T00:00:00.000Z | null        | null          |
+###### The code and table above returns the first items purchased after customers A and B became members 
+###### Ex: Customer A purchased curry and ramen after they joined the loyalty program 
+
 
 
