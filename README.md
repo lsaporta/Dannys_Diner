@@ -46,5 +46,28 @@ GROUP BY sales.customer_id, sales.product_id, menu.product_name;
 ###### Ex: Customer B first item purchased was sushi 
 
 ## What is the most popular menu item and how many times was it purchased per customer?
+```sql
+SELECT sales.customer_id, 
+sales.product_id, 
+menu.product_name,
+COUNT(menu.product_name) OVER (
+PARTITION BY sales.customer_id) AS times_ordered
+FROM dannys_diner.sales LEFT JOIN dannys_diner.menu 
+ON sales.product_id = menu.product_id 
+GROUP BY sales.customer_id, sales.product_id, menu.product_name 
+ORDER BY times_ordered DESC; 
+```
+| customer\_id | product\_id | product\_name | times\_ordered |
+| ------------ | ----------- | ------------- | -------------- |
+| A            | 1           | sushi         | 3              |
+| A            | 2           | curry         | 3              |
+| A            | 3           | ramen         | 3              |
+| B            | 1           | sushi         | 3              |
+| B            | 2           | curry         | 3              |
+| B            | 3           | ramen         | 3              |
+| C            | 3           | ramen         | 1              |
+###### The above code and table returns the most popular item on the menu as well as the number of times it was ordered
+
+
 
 
