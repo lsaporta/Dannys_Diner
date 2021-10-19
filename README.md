@@ -91,5 +91,7 @@ ORDER BY sales.customer_id DESC, customer_favorites DESC;
 ###### The above code and table returns the most popular menu item per customer 
 ###### Ex: Customer C ordered ramen a total of 3 times making it their favorite menu item
 
+## Which item was purchased first after they became a loyalty member?
+```sql
 
 
