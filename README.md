@@ -111,4 +111,25 @@ ON sales.product_id = menu.product_id;
 ###### Ex: Customer A purchased curry and ramen after they joined the loyalty program 
 
 
+## Which items were purchased before each customer became a loyalty member?
+```sql
+SELECT sales.customer_id, sales.order_date, sales.product_id, menu.product_name 
+FROM dannys_diner.sales LEFT JOIN dannys_diner.menu 
+ON sales.product_id = menu.product_id
+WHERE order_date < '2021-01-09' AND order_date < '2021-01-07' 
+GROUP BY sales.customer_id, sales.order_date, sales.product_id, menu.product_name  
+ORDER BY sales.order_date DESC, sales.customer_id DESC;
+```
+| customer\_id | order\_date              | product\_id | product\_name |
+| ------------ | ------------------------ | ----------- | ------------- |
+| B            | 2021-01-04T00:00:00.000Z | 1           | sushi         |
+| B            | 2021-01-02T00:00:00.000Z | 2           | curry         |
+| C            | 2021-01-01T00:00:00.000Z | 3           | ramen         |
+| B            | 2021-01-01T00:00:00.000Z | 2           | curry         |
+| A            | 2021-01-01T00:00:00.000Z | 1           | sushi         |
+| A            | 2021-01-01T00:00:00.000Z | 2           | curry         |
+###### The above code and table returns the items purchased before customers A and B became loyalty members 
+###### Ex: Customer B joined the loyalty program on '2021-01-09' and the item they purchased beforehand was sushi 
+###### 2 Ex: Customer A joined the loyalty program on '2021-01-07' and they purchased sushi and curry before they became members
+
 
