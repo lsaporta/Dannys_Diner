@@ -45,5 +45,6 @@ GROUP BY sales.customer_id, sales.product_id, menu.product_name;
 ###### The above code and table returns the first item purchased for every customer 
 ###### Ex: Customer B first item purchased was sushi 
 
-## 
+## What is the most popular menu item and how many times was it purchased per customer?
+
 
