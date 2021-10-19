@@ -68,6 +68,28 @@ ORDER BY times_ordered DESC;
 | C            | 3           | ramen         | 1              |
 ###### The above code and table returns the most popular item on the menu as well as the number of times it was ordered
 
+## Most popular menu item for each customer 
+```sql
+SELECT DISTINCT sales.customer_id, 
+sales.product_id, 
+menu.product_name, 
+COUNT(menu.product_name) AS customer_favorites
+FROM dannys_diner.sales LEFT JOIN dannys_diner.menu 
+ON sales.product_id = menu.product_id
+GROUP BY sales.customer_id, sales.product_id, menu.product_name
+ORDER BY sales.customer_id DESC, customer_favorites DESC; 
+```
+| customer\_id | product\_id | product\_name | customer\_favorites |
+| ------------ | ----------- | ------------- | ------------------- |
+| C            | 3           | ramen         | 3                   |
+| B            | 1           | sushi         | 2                   |
+| B            | 2           | curry         | 2                   |
+| B            | 3           | ramen         | 2                   |
+| A            | 3           | ramen         | 3                   |
+| A            | 2           | curry         | 2                   |
+| A            | 1           | sushi         | 1                   |
+###### The above code and table returns the most popular menu item per customer 
+###### Ex: Customer C ordered ramen a total of 3 times making it their favorite menu item
 
 
 
