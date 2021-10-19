@@ -132,4 +132,6 @@ ORDER BY sales.order_date DESC, sales.customer_id DESC;
 ###### Ex: Customer B joined the loyalty program on '2021-01-09' and the item they purchased beforehand was sushi 
 ###### 2 Ex: Customer A joined the loyalty program on '2021-01-07' and they purchased sushi and curry before they became members
 
+## Before each loyalty member signed up for the program, how many items did they buy and how much did they spend? 
+```sql
 
