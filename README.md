@@ -7,14 +7,20 @@
 ###### Extract and return valuable insights into customer spending behavior 
 ###### Answer business question for small-business owner 
 
-## What was the total amount spent by each customer at this business? 
+## Total amount spent by each customer?
 ```sql
-SELECT sales.customer_id, sales.order_date, sales.product_id, menu.product_name, menu.price, SUM(menu.price) OVER (
+SELECT sales.customer_id, 
+sales.order_date, 
+sales.product_id, 
+menu.product_name,
+menu.price, 
+SUM(menu.price) OVER (
 PARTITION BY sales.customer_id) AS customer_total
-FROM dannys_diner.sales LEFT JOIN dannys_diner.menu
-ON sales.product_id = menu.product_id
+FROM dannys_diner.sales
+LEFT JOIN dannys_diner.menu
+ON sales.product_id = menu.product_id 
 GROUP BY sales.customer_id, sales.order_date, sales.product_id, menu.product_name, menu.price
-ORDER BY sales.customer_id ASC; 
+ORDER BY customer_total DESC;
 ```
 
 ## How many total days has each customer visited this business? 
