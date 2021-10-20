@@ -68,46 +68,37 @@ ORDER BY sales.customer_id ASC;
 
 ## Most popular menu item for each customer 
 ```sql
-SELECT DISTINCT sales.customer_id, 
-sales.product_id, 
-menu.product_name, 
-COUNT(menu.product_name) AS customer_favorites
-FROM dannys_diner.sales LEFT JOIN dannys_diner.menu 
-ON sales.product_id = menu.product_id
-GROUP BY sales.customer_id, sales.product_id, menu.product_name
-ORDER BY sales.customer_id DESC, customer_favorites DESC; 
+SELECT sales.customer_id, 
+      sales.product_id,
+      menu.product_name,
+      COUNT(menu.product_name) OVER (
+      PARTITION BY customer_id) AS times_ordered_bycustomer
+FROM dannys_diner.sales
+LEFT JOIN dannys_diner.menu
+ON sales.product_id = menu.product_id 
+GROUP BY sales.customer_id, 
+        sales.product_id, 
+        menu.product_name
+ORDER BY sales.customer_id ASC; 
 ```
-| customer\_id | product\_id | product\_name | customer\_favorites |
-| ------------ | ----------- | ------------- | ------------------- |
-| C            | 3           | ramen         | 3                   |
-| B            | 1           | sushi         | 2                   |
-| B            | 2           | curry         | 2                   |
-| B            | 3           | ramen         | 2                   |
-| A            | 3           | ramen         | 3                   |
-| A            | 2           | curry         | 2                   |
-| A            | 1           | sushi         | 1                   |
-###### The above code and table returns the most popular menu item per customer 
-###### Ex: Customer C ordered ramen a total of 3 times making it their favorite menu item
 
 ## Which item was purchased first after they became a loyalty member?
 ```sql
-SELECT members.customer_id, 
-       members.join_date,
-       sales.product_id,
-       menu.product_name
-FROM dannys_diner.members LEFT JOIN dannys_diner.sales 
-ON members.join_date = sales.order_date
+SELECT sales.customer_id, 
+members.join_date,
+sales.product_id,
+menu.product_name
+FROM dannys_diner.sales 
+LEFT JOIN dannys_diner.members
+ON sales.customer_id = members.customer_id
 LEFT JOIN dannys_diner.menu 
-ON sales.product_id = menu.product_id; 
+ON sales.product_id = menu.product_id 
+GROUP BY sales.customer_id, 
+sales.product_id, 
+members.join_date,
+menu.product_name
+ORDER BY members.join_date; 
 ```
-| customer\_id | join\_date               | product\_id | product\_name |
-| ------------ | ------------------------ | ----------- | ------------- |
-| A            | 2021-01-07T00:00:00.000Z | 2           | curry         |
-| A            | 2021-01-07T00:00:00.000Z | 3           | ramen         |
-| B            | 2021-01-09T00:00:00.000Z | null        | null          |
-###### The code and table above returns the first items purchased after customers A and B became members 
-###### Ex: Customer A purchased curry and ramen after they joined the loyalty program 
-
 
 ## Which items were purchased before each customer became a loyalty member?
 ```sql
