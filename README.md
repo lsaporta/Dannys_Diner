@@ -22,6 +22,23 @@ ON sales.product_id = menu.product_id
 GROUP BY sales.customer_id, sales.order_date, sales.product_id, menu.product_name, menu.price
 ORDER BY customer_total DESC;
 ```
+| customer\_id | order\_date              | product\_id | product\_name | price | customer\_total |
+| ------------ | ------------------------ | ----------- | ------------- | ----- | --------------- |
+| B            | 2021-01-02T00:00:00.000Z | 2           | curry         | 15    | 74              |
+| B            | 2021-01-04T00:00:00.000Z | 1           | sushi         | 10    | 74              |
+| B            | 2021-01-11T00:00:00.000Z | 1           | sushi         | 10    | 74              |
+| B            | 2021-01-16T00:00:00.000Z | 3           | ramen         | 12    | 74              |
+| B            | 2021-02-01T00:00:00.000Z | 3           | ramen         | 12    | 74              |
+| B            | 2021-01-01T00:00:00.000Z | 2           | curry         | 15    | 74              |
+| A            | 2021-01-01T00:00:00.000Z | 1           | sushi         | 10    | 64              |
+| A            | 2021-01-01T00:00:00.000Z | 2           | curry         | 15    | 64              |
+| A            | 2021-01-07T00:00:00.000Z | 2           | curry         | 15    | 64              |
+| A            | 2021-01-10T00:00:00.000Z | 3           | ramen         | 12    | 64              |
+| A            | 2021-01-11T00:00:00.000Z | 3           | ramen         | 12    | 64              |
+| C            | 2021-01-01T00:00:00.000Z | 3           | ramen         | 12    | 24              |
+| C            | 2021-01-07T00:00:00.000Z | 3           | ramen         | 12    | 24              |
+###### The above code and table returns the total amount of moeny spent between customers A, B and C
+###### Ex: Customer A spent a total of $64 dollars and Customer C spent the least with a total of $24
 
 ## How many total days has each customer visited this business? 
 ```sql
@@ -33,6 +50,22 @@ FROM dannys_diner.sales
 GROUP BY sales.customer_id, sales.order_date
 ORDER BY total_customer_days DESC; 
 ```
+| customer\_id | order\_date              | total\_customer\_days |
+| ------------ | ------------------------ | --------------------- |
+| B            | 2021-01-01T00:00:00.000Z | 6                     |
+| B            | 2021-01-02T00:00:00.000Z | 6                     |
+| B            | 2021-01-04T00:00:00.000Z | 6                     |
+| B            | 2021-01-11T00:00:00.000Z | 6                     |
+| B            | 2021-01-16T00:00:00.000Z | 6                     |
+| B            | 2021-02-01T00:00:00.000Z | 6                     |
+| A            | 2021-01-01T00:00:00.000Z | 4                     |
+| A            | 2021-01-07T00:00:00.000Z | 4                     |
+| A            | 2021-01-10T00:00:00.000Z | 4                     |
+| A            | 2021-01-11T00:00:00.000Z | 4                     |
+| C            | 2021-01-01T00:00:00.000Z | 2                     |
+| C            | 2021-01-07T00:00:00.000Z | 2                     |
+###### The above code and table returns the total amount of days each customer visited this business
+###### Ex: Customer B visited this business the most days with a total of 6
 
 ## What was the first item purchased by each customer
 ```sql
@@ -47,6 +80,23 @@ GROUP BY sales.customer_id,
         menu.product_name
 ORDER BY sales.order_date ASC, sales.customer_id ASC; 
 ```
+| customer\_id | order\_date              | product\_name |
+| ------------ | ------------------------ | ------------- |
+| A            | 2021-01-01T00:00:00.000Z | curry         |
+| A            | 2021-01-01T00:00:00.000Z | sushi         |
+| B            | 2021-01-01T00:00:00.000Z | curry         |
+| C            | 2021-01-01T00:00:00.000Z | ramen         |
+| B            | 2021-01-02T00:00:00.000Z | curry         |
+| B            | 2021-01-04T00:00:00.000Z | sushi         |
+| A            | 2021-01-07T00:00:00.000Z | curry         |
+| C            | 2021-01-07T00:00:00.000Z | ramen         |
+| A            | 2021-01-10T00:00:00.000Z | ramen         |
+| A            | 2021-01-11T00:00:00.000Z | ramen         |
+| B            | 2021-01-11T00:00:00.000Z | sushi         |
+| B            | 2021-01-16T00:00:00.000Z | ramen         |
+| B            | 2021-02-01T00:00:00.000Z | ramen         |
+###### The above code and table returns the first item bought by each customer
+###### Ex: The first item bought by customer C was ramen
 
 ## What is the most popular menu item and how many times was it purchased per customer?
 ```sql
@@ -65,6 +115,18 @@ GROUP BY sales.customer_id,
         menu.product_name
 ORDER BY sales.customer_id ASC;
 ```
+| customer\_id | product\_id | product\_name | times\_ordered\_bycustomer | most\_popular\_item |
+| ------------ | ----------- | ------------- | -------------------------- | ------------------- |
+| A            | 3           | ramen         | 3                          | 3                   |
+| A            | 2           | curry         | 3                          | 2                   |
+| A            | 1           | sushi         | 3                          | 2                   |
+| B            | 2           | curry         | 3                          | 2                   |
+| B            | 1           | sushi         | 3                          | 2                   |
+| B            | 3           | ramen         | 3                          | 3                   |
+| C            | 3           | ramen         | 1                          | 3                   |
+###### The above code and table returns the most popular item on the menu as well as how many times each customer ordered it 
+###### Ex: The most popular item on the menu  was ramen which was ordered 3 times by customers A and B 
+
 
 ## Most popular menu item for each customer 
 ```sql
@@ -81,6 +143,17 @@ GROUP BY sales.customer_id,
         menu.product_name
 ORDER BY sales.customer_id ASC; 
 ```
+| customer\_id | product\_id | product\_name | times\_ordered\_bycustomer |
+| ------------ | ----------- | ------------- | -------------------------- |
+| A            | 1           | sushi         | 3                          |
+| A            | 2           | curry         | 3                          |
+| A            | 3           | ramen         | 3                          |
+| B            | 1           | sushi         | 3                          |
+| B            | 2           | curry         | 3                          |
+| B            | 3           | ramen         | 3                          |
+| C            | 3           | ramen         | 1                          |
+###### The above code and table returns the most popular items by customer 
+###### Ex: The most popular item for customer C was ramen
 
 ## Which item was purchased first after they became a loyalty member?
 ```sql
