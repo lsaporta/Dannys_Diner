@@ -25,12 +25,15 @@ ORDER BY customer_total DESC;
 
 ## How many total days has each customer visited this business? 
 ```sql
-SELECT DISTINCT customer_id AS customer, COUNT(order_date) OVER (
-PARTITION BY customer_id) AS days_visited 
-FROM dannys_diner.sales 
-GROUP BY customer_id, order_date
-ORDER BY days_visited DESC;
+SELECT DISTINCT sales.customer_id,
+       sales.order_date, 
+       COUNT(sales.order_date) OVER (
+       PARTITION BY customer_id) AS total_customer_days
+FROM dannys_diner.sales
+GROUP BY sales.customer_id, sales.order_date
+ORDER BY total_customer_days DESC; 
 ```
+
 
 ## What was the first item purchased by each customer
 ```sql
@@ -139,5 +142,14 @@ ORDER BY sales.order_date DESC, sales.customer_id DESC;
 ###### 2 Ex: Customer A joined the loyalty program on '2021-01-07' and they purchased sushi and curry before they became members
 
 ## Before each loyalty member signed up for the program, how many items did they buy and how much did they spend? 
-```sql
+
+
+
+
+
+
+
+
+
+
 
