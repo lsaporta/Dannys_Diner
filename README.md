@@ -36,22 +36,17 @@ ORDER BY total_customer_days DESC;
 
 ## What was the first item purchased by each customer
 ```sql
-SELECT sales.customer_id, MIN(sales.order_date), sales.product_id, menu.product_name
-FROM dannys_diner.sales LEFT JOIN dannys_diner.menu
-ON sales.product_id = menu.product_id
-GROUP BY sales.customer_id, sales.product_id, menu.product_name;
+SELECT sales.customer_id, 
+sales.order_date,
+menu.product_name
+FROM dannys_diner.sales
+LEFT JOIN dannys_diner.menu
+ON sales.product_id = menu.product_id 
+GROUP BY sales.customer_id, 
+        sales.order_date,
+        menu.product_name
+ORDER BY sales.order_date ASC, sales.customer_id ASC; 
 ```
-| customer\_id | min                      | product\_id | product\_name |
-| ------------ | ------------------------ | ----------- | ------------- |
-| B            | 2021-01-04T00:00:00.000Z | 1           | sushi         |
-| A            | 2021-01-01T00:00:00.000Z | 2           | curry         |
-| C            | 2021-01-01T00:00:00.000Z | 3           | ramen         |
-| A            | 2021-01-10T00:00:00.000Z | 3           | ramen         |
-| B            | 2021-01-16T00:00:00.000Z | 3           | ramen         |
-| A            | 2021-01-01T00:00:00.000Z | 1           | sushi         |
-| B            | 2021-01-01T00:00:00.000Z | 2           | curry         |
-###### The above code and table returns the first item purchased for every customer 
-###### Ex: Customer B first item purchased was sushi 
 
 ## What is the most popular menu item and how many times was it purchased per customer?
 ```sql
