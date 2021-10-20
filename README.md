@@ -34,7 +34,6 @@ GROUP BY sales.customer_id, sales.order_date
 ORDER BY total_customer_days DESC; 
 ```
 
-
 ## What was the first item purchased by each customer
 ```sql
 SELECT sales.customer_id, MIN(sales.order_date), sales.product_id, menu.product_name
@@ -142,7 +141,27 @@ ORDER BY sales.order_date DESC, sales.customer_id DESC;
 ###### 2 Ex: Customer A joined the loyalty program on '2021-01-07' and they purchased sushi and curry before they became members
 
 ## Before each loyalty member signed up for the program, how many items did they buy and how much did they spend? 
-
+```sql
+SELECT sales.customer_id, 
+      sales.order_date, 
+      sales.product_id,
+      menu.product_name, 
+      menu.price,
+      COUNT(menu.product_name) OVER (
+      PARTITION BY customer_id) AS total_customer_items,
+      SUM(menu.price) OVER (
+      PARTITION BY customer_id) AS customer_spending_total
+FROM dannys_diner.sales 
+LEFT JOIN dannys_diner.menu
+ON sales.product_id = menu.product_id
+WHERE sales.order_date < '2021-01-09' AND order_date < '2021-01-07'
+GROUP BY sales.customer_id, 
+        sales.order_date, 
+        sales.product_id, 
+        menu.product_name, 
+        menu.price
+ORDER BY sales.order_date DESC;
+```
 
 
 
