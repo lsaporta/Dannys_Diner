@@ -51,25 +51,20 @@ ORDER BY sales.order_date ASC, sales.customer_id ASC;
 ## What is the most popular menu item and how many times was it purchased per customer?
 ```sql
 SELECT sales.customer_id, 
-sales.product_id, 
-menu.product_name,
-COUNT(menu.product_name) OVER (
-PARTITION BY sales.customer_id) AS times_ordered
-FROM dannys_diner.sales LEFT JOIN dannys_diner.menu 
+      sales.product_id,
+      menu.product_name,
+      COUNT(menu.product_name) OVER (
+      PARTITION BY customer_id) AS times_ordered_bycustomer,
+      COUNT(menu.product_name) OVER (
+      PARTITION BY product_name) AS most_popular_item
+FROM dannys_diner.sales
+LEFT JOIN dannys_diner.menu
 ON sales.product_id = menu.product_id 
-GROUP BY sales.customer_id, sales.product_id, menu.product_name 
-ORDER BY times_ordered DESC; 
+GROUP BY sales.customer_id, 
+        sales.product_id, 
+        menu.product_name
+ORDER BY sales.customer_id ASC;
 ```
-| customer\_id | product\_id | product\_name | times\_ordered |
-| ------------ | ----------- | ------------- | -------------- |
-| A            | 1           | sushi         | 3              |
-| A            | 2           | curry         | 3              |
-| A            | 3           | ramen         | 3              |
-| B            | 1           | sushi         | 3              |
-| B            | 2           | curry         | 3              |
-| B            | 3           | ramen         | 3              |
-| C            | 3           | ramen         | 1              |
-###### The above code and table returns the most popular item on the menu as well as the number of times it was ordered
 
 ## Most popular menu item for each customer 
 ```sql
