@@ -217,6 +217,10 @@ GROUP BY sales.customer_id,
 ORDER BY sales.order_date DESC;
 ```
 
+## Customer will earn 2x points every week after they join the loyalty program for any items purchased
+## This includes the customers join_date 
+## How many points do customers have at the end of January?
+
 
 
 
