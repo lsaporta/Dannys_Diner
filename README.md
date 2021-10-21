@@ -220,6 +220,27 @@ ORDER BY sales.order_date DESC;
 ## Customer will earn 2x points every week after they join the loyalty program for any items purchased
 ## This includes the customers join_date 
 ## How many points do customers have at the end of January?
+```sql
+SELECT sales.customer_id,
+      sales.order_date,
+      menu.product_name,
+      COUNT(menu.product_name) OVER (
+      PARTITION BY sales.customer_id) AS customer_order_count,
+      COUNT(menu.product_name) OVER (
+      PARTITION BY sales.customer_id) * 2 AS customer_points
+FROM dannys_diner.sales 
+LEFT JOIN dannys_diner.menu
+ON sales.product_id = menu.product_id
+WHERE sales.order_date >= '2021-01-07'
+AND sales.order_date < '2021-02-01'
+AND sales.customer_id != 'C' 
+GROUP BY sales.customer_id,
+        sales.order_date,
+        menu.product_name
+ORDER BY sales.order_date DESC, 
+        sales.customer_id DESC; 
+```
+
 
 
 
