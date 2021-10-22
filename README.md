@@ -241,6 +241,31 @@ ORDER BY sales.order_date DESC,
         sales.customer_id DESC; 
 ```
 
+## Customer's earn 10 points for every $1 spent 
+## Customer's get their points multiple by 2x for every order of sushi
+## With this model, how many points would each customer have? 
+```sql
+SELECT sales.customer_id, 
+      sales.order_date, 
+      sales.product_id,
+      menu.product_name,
+      menu.price,
+      menu.price * 10 AS customer_points, 
+CASE 
+  WHEN menu.product_name = 'ramen' THEN menu.price * 10 * 2 ELSE 0
+  END AS ramen_points
+FROM dannys_diner.sales
+INNER JOIN dannys_diner.menu
+ON sales.product_id = menu.product_id
+GROUP BY sales.customer_id,
+        sales.order_date,
+        sales.product_id,
+        menu.product_name,
+        menu.price
+ORDER BY sales.customer_id DESC;
+```
+
+
 
 
 
