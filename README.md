@@ -283,6 +283,23 @@ GROUP BY sales.customer_id,
         menu.price
 ORDER BY sales.customer_id DESC;
 ```
+| customer\_id | order\_date              | product\_id | product\_name | price | customer\_points | ramen\_points |
+| ------------ | ------------------------ | ----------- | ------------- | ----- | ---------------- | ------------- |
+| C            | 2021-01-01T00:00:00.000Z | 3           | ramen         | 12    | 120              | 240           |
+| C            | 2021-01-07T00:00:00.000Z | 3           | ramen         | 12    | 120              | 240           |
+| B            | 2021-01-01T00:00:00.000Z | 2           | curry         | 15    | 150              | 0             |
+| B            | 2021-01-02T00:00:00.000Z | 2           | curry         | 15    | 150              | 0             |
+| B            | 2021-01-04T00:00:00.000Z | 1           | sushi         | 10    | 100              | 0             |
+| B            | 2021-01-11T00:00:00.000Z | 1           | sushi         | 10    | 100              | 0             |
+| B            | 2021-01-16T00:00:00.000Z | 3           | ramen         | 12    | 120              | 240           |
+| B            | 2021-02-01T00:00:00.000Z | 3           | ramen         | 12    | 120              | 240           |
+| A            | 2021-01-01T00:00:00.000Z | 1           | sushi         | 10    | 100              | 0             |
+| A            | 2021-01-01T00:00:00.000Z | 2           | curry         | 15    | 150              | 0             |
+| A            | 2021-01-07T00:00:00.000Z | 2           | curry         | 15    | 150              | 0             |
+| A            | 2021-01-10T00:00:00.000Z | 3           | ramen         | 12    | 120              | 240           |
+| A            | 2021-01-11T00:00:00.000Z | 3           | ramen         | 12    | 120              | 240           |
+## The code and table above returns how many customer points each customer would earn with the implementation of the above mentioned business model
+## Ex: Customer C earned a total of 240 customer points 
 
 
 
