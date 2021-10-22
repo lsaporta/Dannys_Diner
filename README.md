@@ -216,6 +216,16 @@ GROUP BY sales.customer_id,
         menu.price
 ORDER BY sales.order_date DESC;
 ```
+| customer\_id | order\_date              | product\_id | product\_name | price | total\_customer\_items | customer\_spending\_total |
+| ------------ | ------------------------ | ----------- | ------------- | ----- | ---------------------- | ------------------------- |
+| B            | 2021-01-04T00:00:00.000Z | 1           | sushi         | 10    | 3                      | 40                        |
+| B            | 2021-01-02T00:00:00.000Z | 2           | curry         | 15    | 3                      | 40                        |
+| A            | 2021-01-01T00:00:00.000Z | 2           | curry         | 15    | 2                      | 25                        |
+| A            | 2021-01-01T00:00:00.000Z | 1           | sushi         | 10    | 2                      | 25                        |
+| B            | 2021-01-01T00:00:00.000Z | 2           | curry         | 15    | 3                      | 40                        |
+| C            | 2021-01-01T00:00:00.000Z | 3           | ramen         | 12    | 1                      | 12                        |
+## The code and table above returns the total amount of items bought and the total amount each customer spent
+## Ex: Customer B bought a total of 3 items and spent a total of $40 before they became a loyalty member 
 
 ## Customer will earn 2x points every week after they join the loyalty program for any items purchased
 ## This includes the customers join_date 
@@ -240,6 +250,15 @@ GROUP BY sales.customer_id,
 ORDER BY sales.order_date DESC, 
         sales.customer_id DESC; 
 ```
+| customer\_id | order\_date              | product\_name | customer\_order\_count | customer\_points |
+| ------------ | ------------------------ | ------------- | ---------------------- | ---------------- |
+| B            | 2021-01-16T00:00:00.000Z | ramen         | 2                      | 4                |
+| B            | 2021-01-11T00:00:00.000Z | sushi         | 2                      | 4                |
+| A            | 2021-01-11T00:00:00.000Z | ramen         | 3                      | 6                |
+| A            | 2021-01-10T00:00:00.000Z | ramen         | 3                      | 6                |
+| A            | 2021-01-07T00:00:00.000Z | curry         | 3                      | 6                |
+## The above code and table returns the two loyalty members and how many points they accumulated at the end of January 
+## Ex: Customer A accumulated a total of six points at the end of January
 
 ## Customer's earn 10 points for every $1 spent 
 ## Customer's get their points multiple by 2x for every order of sushi
