@@ -1,7 +1,7 @@
 # Dannys_Diner
 ![Unknown](https://user-images.githubusercontent.com/77989300/137805636-e0786535-6b1e-4f81-97fb-99b44894b527.jpeg)
 
-## Goal Of Analysis
+## Analysis Goal:
 
 ###### Strengthen the relationship between small-business owner and their target audience 
 ###### Extract and return valuable insights into customer spending behavior 
@@ -172,6 +172,16 @@ members.join_date,
 menu.product_name
 ORDER BY members.join_date; 
 ```
+| customer\_id | join\_date               | product\_id | product\_name |
+| ------------ | ------------------------ | ----------- | ------------- |
+| A            | 2021-01-07T00:00:00.000Z | 1           | sushi         |
+| A            | 2021-01-07T00:00:00.000Z | 2           | curry         |
+| A            | 2021-01-07T00:00:00.000Z | 3           | ramen         |
+| B            | 2021-01-09T00:00:00.000Z | 1           | sushi         |
+| B            | 2021-01-09T00:00:00.000Z | 2           | curry         |
+| B            | 2021-01-09T00:00:00.000Z | 3           | ramen         |
+###### The above code and table returns the item bought by each customer after they became a loyalty 
+
 
 ## Which items were purchased before each customer became a loyalty member?
 ```sql
@@ -224,8 +234,8 @@ ORDER BY sales.order_date DESC;
 | A            | 2021-01-01T00:00:00.000Z | 1           | sushi         | 10    | 2                      | 25                        |
 | B            | 2021-01-01T00:00:00.000Z | 2           | curry         | 15    | 3                      | 40                        |
 | C            | 2021-01-01T00:00:00.000Z | 3           | ramen         | 12    | 1                      | 12                        |
-## The code and table above returns the total amount of items bought and the total amount each customer spent
-## Ex: Customer B bought a total of 3 items and spent a total of $40 before they became a loyalty member 
+###### The code and table above returns the total amount of items bought and the total amount each customer spent
+###### Ex: Customer B bought a total of 3 items and spent a total of $40 before they became a loyalty member 
 
 ## Customer will earn 2x points every week after they join the loyalty program for any items purchased
 ## This includes the customers join_date 
@@ -257,8 +267,8 @@ ORDER BY sales.order_date DESC,
 | A            | 2021-01-11T00:00:00.000Z | ramen         | 3                      | 6                |
 | A            | 2021-01-10T00:00:00.000Z | ramen         | 3                      | 6                |
 | A            | 2021-01-07T00:00:00.000Z | curry         | 3                      | 6                |
-## The above code and table returns the two loyalty members and how many points they accumulated at the end of January 
-## Ex: Customer A accumulated a total of six points at the end of January
+###### The above code and table returns the two loyalty members and how many points they accumulated at the end of January 
+###### Ex: Customer A accumulated a total of six points at the end of January
 
 ## Customer's earn 10 points for every $1 spent 
 ## Customer's get their points multiple by 2x for every order of sushi
@@ -298,8 +308,8 @@ ORDER BY sales.customer_id DESC;
 | A            | 2021-01-07T00:00:00.000Z | 2           | curry         | 15    | 150              | 0             |
 | A            | 2021-01-10T00:00:00.000Z | 3           | ramen         | 12    | 120              | 240           |
 | A            | 2021-01-11T00:00:00.000Z | 3           | ramen         | 12    | 120              | 240           |
-## The code and table above returns how many customer points each customer would earn with the implementation of the above mentioned business model
-## Ex: Customer C earned a total of 240 customer points 
+###### The code and table above returns how many customer points each customer would earn with the implementation of the above mentioned business model
+###### Ex: Customer C earned a total of 240 customer points 
 
 
 
